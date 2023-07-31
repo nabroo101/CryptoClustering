@@ -101,6 +101,24 @@ This provides an overview of the standardized data for further analysis or visua
 The above code explains the steps taken to standardize and preprocess the data from the CSV file, creating a new DataFrame with the scaled values. The "coin_id" column is copied from the original data, and it becomes the index for the `df_scaled_data` DataFrame. Optionally, the code displays a sample of the scaled data for inspection.
 
 
+In this code, I am performing K-means clustering with different values of 'k' (the number of clusters) and storing the corresponding inertia values in a list.
+
+1. `k = list(range(1, 11))`: create a list `k` containing the numbers from 1 to 10. This will be used as the range of 'k' values for K-means clustering.
+
+2. `inertia = []`: An empty list named `inertia` is initialized to store the inertia values for each K-means model.
+
+3. For loop:
+   - The for loop iterates over each value of 'k' in the list `k`.
+   - Inside the loop, I perform the following steps for each 'k':
+
+     a. `k_model = KMeans(n_clusters=i)`: I create a KMeans model with 'i' clusters, where 'i' is the current value of 'k' in the loop.
+
+     b. `k_model.fit(df_scaled_data)`: The KMeans model is fitted to the scaled data in the `df_scaled_data` DataFrame. The algorithm attempts to cluster the data points into 'i' clusters based on their similarity.
+
+     c. `inertia.append(k_model.inertia_)`: The inertia value of the KMeans model is computed and appended to the `inertia` list. The inertia is a measure of how tightly the data points are clustered around their respective centroids. A lower inertia generally indicates better clustering.
+
+After the loop finishes, the `inertia` list will contain the inertia values corresponding to each 'k' value, which can be used to evaluate and visualize the optimal number of clusters for my data. now we will plot the inertia values against the number of clusters to identify the "elbow" point, where the inertia starts to level off. This "elbow" point often indicates the optimal number of clusters for your K-means clustering.
+
 
 ---
 ---
