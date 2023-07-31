@@ -34,8 +34,6 @@ df_market_data = pd.read_csv(
 
 df_market_data.columns
 
-# Standardize the features using StandardScaler
-scaler = StandardScaler()
 
 
 df_scaled_data = StandardScaler().fit_transform(df_market_data[['price_change_percentage_24h', 'price_change_percentage_7d',
@@ -95,7 +93,7 @@ df_scaled_data = df_scaled_data.set_index("coin_id")
 Finally, the code can display a sample of the scaled data using the `head()` method.
 This provides an overview of the standardized data for further analysis or visualization.
 
-<br>
+
 The above code explains the steps taken to standardize and preprocess the data from the CSV file, creating a new DataFrame with the scaled values. The "coin_id" column is copied from the original data, and it becomes the index for the `df_scaled_data` DataFrame. Optionally, the code displays a sample of the scaled data for inspection.
 
 ---
@@ -108,6 +106,7 @@ In this code, I am performing K-means clustering with different values of 'k' (t
 1. `k = list(range(1, 11))`: create a list `k` containing the numbers from 1 to 10. This will be used as the range of 'k' values for K-means clustering.
 
 2. `inertia = []`: An empty list named `inertia` is initialized to store the inertia values for each K-means model.
+    inertia is a critical measure in K-means clustering as it helps identify the appropriate number of clusters and evaluates how well the clusters separate the data points. Lower inertia indicates better clustering performance.
 
 3. For loop:
    - The for loop iterates over each value of 'k' in the list `k`.
@@ -152,12 +151,55 @@ This will display the inertia values for each corresponding value of "k" in the 
 
 #### Cluster Cryptocurrencies with K-means Using the Original Scaled Data
 
+```
+k_means = KMeans(n_clusters= 4)
+k_means.fit(df_scaled_indexed)
+k_means_predict = k_means.predict(df_scaled_indexed)
+
+k_means_predict
+
+predicted_scaled_df["predicted clusters"] = k_means_predict
+predicted_scaled_df.head()
+
+predicted_scaled_df.hvplot.scatter(
+    x = "price_change_percentage_24h",
+    y = "price_change_percentage_7d",
+    by = "predicted clusters" ,
+    title = " pedicted clusters"
+)```
+
+```
+
+1. Initialize K-Means Model:
+   - created a KMeans model with 4 clusters (`n_clusters=4`).
+
+2. Fit the Model:
+   - The KMeans model is fitted to the scaled data (`df_scaled_indexed`), trying to group cryptocurrencies into 4 clusters based on similarity.
+
+3. Predict Clusters:
+   - The model predicts the cluster for each data point in `df_scaled_indexed`, and the results are stored in `k_means_predict`.
+
+4. Add Predicted Clusters:
+   - A new column "predicted clusters" is added to the `predicted_scaled_df` DataFrame to store the cluster assignments.
+
+5. Display Sample Data:
+   - The first few rows of `predicted_scaled_df` with the "predicted clusters" column are displayed to inspect the data.
+
+6. Visualize Clusters:
+   - A scatter plot is created using HoloViews (`hvplot.scatter()`) to show the data points from `predicted_scaled_df`.
+   - The x-axis represents "price_change_percentage_24h," the y-axis represents "price_change_percentage_7d."
+   - Data points are colored and grouped by the "predicted clusters" column.
+   - The title of the plot is set to "predicted clusters."
+
+This code uses K-means clustering to group cryptocurrencies based on their price change percentages over different time intervals. The resulting clusters help identify patterns and similarities between cryptocurrencies in the market. The scatter plot visually presents the clustered data points, making it easier to interpret and analyze the results.
+
 
 ---
 ---
 ---
 ---
 ---
+
 
 
 
