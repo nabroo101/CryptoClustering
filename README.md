@@ -93,13 +93,15 @@ df_scaled_data = df_scaled_data.set_index("coin_id")
 #### Step 4: Displaying Sample Data (Optional)
 
 Finally, the code can display a sample of the scaled data using the `head()` method.
-
 This provides an overview of the standardized data for further analysis or visualization.
+
+<br>
+The above code explains the steps taken to standardize and preprocess the data from the CSV file, creating a new DataFrame with the scaled values. The "coin_id" column is copied from the original data, and it becomes the index for the `df_scaled_data` DataFrame. Optionally, the code displays a sample of the scaled data for inspection.
 
 ---
 
-The above code explains the steps taken to standardize and preprocess the data from the CSV file, creating a new DataFrame with the scaled values. The "coin_id" column is copied from the original data, and it becomes the index for the `df_scaled_data` DataFrame. Optionally, the code displays a sample of the scaled data for inspection.
 
+### Find the Best Value for k Using the Original Scaled DataFrame
 
 In this code, I am performing K-means clustering with different values of 'k' (the number of clusters) and storing the corresponding inertia values in a list.
 
@@ -120,105 +122,77 @@ In this code, I am performing K-means clustering with different values of 'k' (t
 After the loop finishes, the `inertia` list will contain the inertia values corresponding to each 'k' value, which can be used to evaluate and visualize the optimal number of clusters for my data. now we will plot the inertia values against the number of clusters to identify the "elbow" point, where the inertia starts to level off. This "elbow" point often indicates the optimal number of clusters for your K-means clustering.
 
 
----
----
----
----
----
-
-
-
-
-
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-In this section, you are performing data preprocessing and feature scaling. 
-
-- First, you define the list `features` to include the names of the columns that represent your input features. Replace the `'feature1', 'feature2', ...` with the actual names of your features.
-- If your dataset has a target variable (i.e., a label or class that you want to predict or cluster by), you can specify its column name in the `target` variable. The code then separates the features (X) and the target variable (y) accordingly. If you don't have a target variable or you're performing unsupervised learning (clustering), you can skip this step.
-- Next, you create an instance of `StandardScaler` and use it to scale the feature data (`X`) using the `fit_transform` method. Scaling the features is essential for many machine learning algorithms, including clustering, as it ensures that all features contribute equally to the analysis.
+In this code, i am plotting a line chart using the HoloViews extension for pandas to visualize the inertia values computed during the Elbow method.
 
 ```python
-# Perform Principal Component Analysis (PCA) for dimensionality reduction if needed
-# Replace n_components with the desired number of principal components you want to keep
-# If you don't want to use PCA, you can skip this step and keep the original feature data.
-n_components = 2  # Change this value as per your requirement
-
-pca = PCA(n_components=n_components)
-X_pca = pca.fit_transform(X_scaled)
+df_elbow_data.hvplot.line(
+    x="k",
+    y="inertia",
+    title="Elbow method"
+)
 ```
 
-If you have a large number of features and want to reduce dimensionality, you can use PCA. It's not always necessary, but it can be helpful for visualization and reducing computation time in high-dimensional datasets.
+- `df_elbow_data`: This is the DataFrame containing the inertia values for different values of "k" (number of clusters).
 
-- Specify the number of principal components you want to keep in the `n_components` variable. This determines the number of dimensions in the reduced feature space.
-- Then, create an instance of `PCA` and apply it to the scaled feature data (`X_scaled`) using the `fit_transform` method. This will give you the reduced feature data (`X_pca`) with the specified number of principal components.
+- `hvplot.line()`: This is the HoloViews function used to create a line chart. The data from `df_elbow_data` will be plotted as a line chart.
+
+- `x="k"` and `y="inertia"`: These parameters specify the columns to use for the x-axis and y-axis of the line chart, respectively. "k" will be used as the x-axis (representing the number of clusters), and "inertia" will be used as the y-axis (representing the inertia values).
+
+- `title="Elbow method"`: This parameter sets the title of the plot to "Elbow method".
+
+The resulting line chart will visually represent the inertia values for different values of "k". It helps you identify the "elbow" point, which indicates the optimal number of clusters for K-means clustering. The "elbow" point is the value of "k" where the inertia starts to level off, suggesting a good balance between the number of clusters and the compactness of each cluster.
+
+To display the inertia values directly without plotting, i used the following line:
 
 ```python
-# Clustering using K-means
-# Replace n_clusters with the desired number of clusters you want to create
-n_clusters = 3  # Change this value as per your requirement
-
-kmeans = KMeans(n_clusters=n_clusters, random_state=42)
-clusters = kmeans.fit_predict(X_pca)  # Fit the KMeans model and get cluster labels
+df_elbow_data["inertia"]
 ```
 
-In this section, you're performing clustering using K-means on the reduced feature data obtained from PCA (`X_pca`). 
+This will display the inertia values for each corresponding value of "k" in the `df_elbow_data` DataFrame.
 
-- Specify the number of clusters you want to create in the `n_clusters` variable. K-means will try to group the data points into this number of clusters.
-- Create an instance of `KMeans` and fit it to the reduced feature data using the `fit_predict` method. This will assign each data point to a cluster, and you'll get an array of cluster labels stored in the `clusters` variable.
+#### Cluster Cryptocurrencies with K-means Using the Original Scaled Data
 
-Now, you have performed clustering on your data. The variable `clusters` contains the cluster assignments for each data point. You can use this information for further analysis or visualization.
 
-Keep in mind that your code assumes specific column names for features and the target variable. Make sure to replace those column names with the actual ones from your dataset. Additionally, you can modify the values of `n_components` and `n_clusters` based on your specific needs and domain knowledge.
+---
+---
+---
+---
+---
 
-I hope this helps you in documenting your code and understanding the different steps involved in your homework challenge. If you have any further questions or need additional assistance, feel free to ask! Good luck with your homework!
 
-1. Rename the `Crypto_Clustering_starter_code.ipynb` file as `Crypto_Clustering.ipynb`.
 
-2. Load the `crypto_market_data.csv` into a DataFrame.
 
-3. Get the summary statistics and plot the data to see what the data looks like before proceeding.
 
-#### Prepare the Data
 
-* Use the `StandardScaler()` module from `scikit-learn` to normalize the data from the CSV file.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
 
-* Create a DataFrame with the scaled data and set the "coin_id" index from the original DataFrame as the index for the new DataFrame.
 
-    * The first five rows of the scaled DataFrame should appear as follows:
 
-        ![The first five rows of the scaled DataFrame](https://static.bc-edx.com/data/dl-1-2/m19/lms/img/scaled_DataFrame.png)
 
-#### Find the Best Value for k Using the Original Scaled DataFrame
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Use the elbow method to find the best value for `k` using the following steps:
 
