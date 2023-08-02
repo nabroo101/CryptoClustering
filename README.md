@@ -51,7 +51,7 @@ The project relies on the following Python libraries:
 1. Clone the repository:
 
    ```
-   git clone 
+   git clone https://github.com/nabroo101/CryptoClustering
    cd crypto_clustering
    ```
 
