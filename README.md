@@ -69,6 +69,12 @@ The project relies on the following Python libraries:
 
    The notebook contains all the code for the data analysis and visualization.
 
+## Acknowledgments
+
+   1. The project was completed as part of a data analysis challenge or coursework.
+   2. I attended a review session with the instructor and TA, which helped me gain valuable insights into the analysis and visualization techniques.
+
+
 ## Conclusion
 
 This data analysis project provides valuable insights into the cryptocurrency market using K-Means clustering and PCA. By following the steps in the Jupyter Notebook, users can reproduce the analysis, explore the clustering results, and gain a better understanding of the trends in the cryptocurrency market.
